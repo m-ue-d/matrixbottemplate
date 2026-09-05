@@ -77,7 +77,6 @@ async def undecrypted_callback(room, event: MegolmEvent):
     try:
         await client.request_room_key(event)
     except Exception as e:
-        # "already sent out for this session" is expected/harmless — not a real failure
         print(f"Key request note: {e}")
 
 
@@ -105,7 +104,7 @@ async def main():
         sys.exit(1)
 
     print(f"Logged in as {client.user_id}, device {client.device_id}")
-    save_device_id(client.device_id)  # locks in the same device_id for next run
+    save_device_id(client.device_id)
 
     if client.should_upload_keys:
         await client.keys_upload()
@@ -114,7 +113,7 @@ async def main():
     client.add_event_callback(invite_callback, InviteMemberEvent)
     client.add_event_callback(undecrypted_callback, MegolmEvent)
 
-    await client.sync_forever(timeout=30000, full_state=True)
+    await client.sync_forever(timeout=50000, full_state=True)
 
 
 if __name__ == "__main__":

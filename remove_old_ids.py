@@ -9,8 +9,8 @@ HOMESERVER = os.getenv("MATRIX_HOMESERVER")
 USERNAME = os.getenv("MATRIX_USER")
 PASSWORD = os.getenv("MATRIX_PASSWORD")
 
-# The device_id your bot currently uses (keep this one!) — read from device_id.json
 import json
+
 with open("device_id.json") as f:
     CURRENT_DEVICE_ID = json.load(f)["device_id"]
 
@@ -30,7 +30,6 @@ async def main():
     print(f"Deleting stale: {stale_ids}")
 
     if stale_ids:
-        # delete_devices requires UIA (password re-auth)
         resp = await client.delete_devices(
             stale_ids,
             auth={
