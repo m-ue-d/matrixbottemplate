@@ -1,8 +1,12 @@
 FROM python:latest
 LABEL Maintainer="m-ue-d"
 
-WORDKIR /bot/src
+WORDKIR /bot
 
-COPY bot.py .
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
 
 CMD ["python", "bot.py"]
