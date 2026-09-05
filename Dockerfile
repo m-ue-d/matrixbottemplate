@@ -1,7 +1,7 @@
 FROM python:latest
 LABEL Maintainer="m-ue-d"
 
-WORDKIR /bot
+WORKDIR /bot
 
 COPY requirements.txt .
 
